@@ -23,9 +23,6 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
       - name: Generate Release Keystore
         working-directory: android/app
         run: |
@@ -39,9 +36,12 @@ jobs:
             -keypass taskflowlite \
             -dname "CN=TaskFlowLite, OU=App, O=TaskFlow, L=Lagos, S=Lagos, C=NG"
 
-      - name: Make Gradlew Executable
+      - name: Accept Android SDK Licenses & Setup Wrapper
+        working-directory: android
         run: |
-          chmod +x android/gradlew || true
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+          gradle wrapper --gradle-version 8.4
+          chmod +x gradlew
 
       - name: Build with Gradle
         working-directory: android
@@ -50,7 +50,6 @@ jobs:
 
       - name: Prepare Root APK
         run: |
-          mkdir -p build_output
           cp android/app/build/outputs/apk/release/*.apk ./taskflowlite.apk
           ls -lh ./taskflowlite.apk
 
