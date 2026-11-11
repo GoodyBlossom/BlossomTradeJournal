@@ -1,0 +1,97 @@
+name: Build & Release Task Flow Lite APK
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build Release APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Generate Release Keystore
+        working-directory: android/app
+        run: |
+          keytool -genkey -v \
+            -keystore release.keystore \
+            -alias taskflowlite \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -storepass taskflowlite \
+            -keypass taskflowlite \
+            -dname "CN=TaskFlowLite, OU=App, O=TaskFlow, L=Lagos, S=Lagos, C=NG"
+
+      - name: Make Gradlew Executable
+        run: |
+          chmod +x android/gradlew || true
+
+      - name: Build with Gradle
+        working-directory: android
+        run: |
+          ./gradlew assembleRelease --stacktrace
+
+      - name: Prepare Root APK
+        run: |
+          mkdir -p build_output
+          cp android/app/build/outputs/apk/release/*.apk ./taskflowlite.apk
+          ls -lh ./taskflowlite.apk
+
+      - name: Verify APK Signing & Metadata
+        run: |
+          $ANDROID_HOME/build-tools/34.0.0/apksigner verify --verbose ./taskflowlite.apk || true
+          $ANDROID_HOME/build-tools/34.0.0/aapt dump badging ./taskflowlite.apk | grep -E "package|application-label" || true
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: taskflowlite-apk
+          path: taskflowlite.apk
+
+      - name: Create or Update GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        with:
+          tag_name: v1.0.0
+          name: "Task Flow Lite v1.0.0 🚀"
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          body: |
+            ## Task Flow Lite v1.0.0 ⚡
+            
+            Compact, clean, and 100% offline personal task manager packaged as a native Android WebView APK.
+            
+            ### ✨ Features
+            - ➕ Add, complete, and delete tasks
+            - 🏷️ Categorize by General, Work, Personal, and Urgent
+            - 🎯 Priority levels: High 🔴, Medium 🟡, Normal 🟢
+            - 🔍 Filter by All, Active, and Completed
+            - 📊 Live visual progress bar & task counters
+            - 💾 Instant local persistence via localStorage
+            - 📱 Mobile-friendly responsive UI with touch gestures
+            - 🔌 100% Offline: zero internet required, zero backend dependencies
+            
+            ### 📦 Download APK
+            Download **`taskflowlite.apk`** below and install it directly on any Android phone (Android 5.0 Lollipop and above).
+          files: |
+            taskflowlite.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

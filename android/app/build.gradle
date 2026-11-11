@@ -1,0 +1,56 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.taskflowlite.app'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.taskflowlite.app"
+        minSdk 21
+        targetSdk 34
+        versionCode 1
+        versionName "1.0.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        release {
+            // Self-contained signing configuration for release distribution
+            storeFile file("release.keystore")
+            storePassword "taskflowlite"
+            keyAlias "taskflowlite"
+            keyPassword "taskflowlite"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            outputFileName = "taskflowlite-${variant.buildType.name}.apk"
+        }
+    }
+}
+
+dependencies {
+    // Compact native WebView APK - no bulky frameworks
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+}

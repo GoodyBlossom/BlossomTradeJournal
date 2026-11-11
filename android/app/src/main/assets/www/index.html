@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Task Flow Lite ⚡</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header Banner -->
+    <header class="app-header">
+      <div class="header-content">
+        <div class="logo-badge">⚡</div>
+        <div class="header-titles">
+          <h1>Task Flow Lite</h1>
+          <p class="tagline">Personal Task Manager · Fast & Simple</p>
+        </div>
+      </div>
+
+      <!-- Progress Card -->
+      <div class="stats-card">
+        <div class="stats-row">
+          <div class="stat-item">
+            <span class="stat-number" id="totalTasksCount">0</span>
+            <span class="stat-label">📋 Total</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-number" id="activeTasksCount">0</span>
+            <span class="stat-label">⏳ Pending</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-number text-success" id="completedTasksCount">0</span>
+            <span class="stat-label">✅ Done</span>
+          </div>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progressBarFill" style="width: 0%;"></div>
+        </div>
+        <div class="progress-text" id="progressText">0% of tasks completed · Let's get started! 🚀</div>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="app-main">
+      <!-- Add Task Card -->
+      <section class="card input-card">
+        <form id="taskForm" class="task-form">
+          <div class="input-wrapper">
+            <span class="input-icon">✍️</span>
+            <input 
+              type="text" 
+              id="taskInput" 
+              class="task-input" 
+              placeholder="What do you need to do today?" 
+              autocomplete="off" 
+              required
+              maxlength="140"
+            />
+          </div>
+
+          <div class="form-controls">
+            <!-- Category Chips -->
+            <div class="category-selector">
+              <label class="control-label">Category:</label>
+              <div class="chips-group" id="categoryChips">
+                <button type="button" class="chip active" data-category="General">📌 General</button>
+                <button type="button" class="chip" data-category="Work">💼 Work</button>
+                <button type="button" class="chip" data-category="Personal">🏠 Personal</button>
+                <button type="button" class="chip" data-category="Urgent">⚡ Urgent</button>
+              </div>
+            </div>
+
+            <!-- Priority Selector -->
+            <div class="priority-selector">
+              <label class="control-label" for="prioritySelect">Priority:</label>
+              <select id="prioritySelect" class="priority-select">
+                <option value="Normal">🟢 Normal</option>
+                <option value="Medium">🟡 Medium</option>
+                <option value="High">🔴 High</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="addTaskBtn">
+            <span class="btn-icon">➕</span> Add Task
+          </button>
+        </form>
+      </section>
+
+      <!-- Filter Controls Bar -->
+      <section class="filter-bar">
+        <div class="filter-tabs" id="filterTabs">
+          <button class="filter-btn active" data-filter="all">
+            All <span class="badge" id="badgeAll">0</span>
+          </button>
+          <button class="filter-btn" data-filter="active">
+            Active <span class="badge" id="badgeActive">0</span>
+          </button>
+          <button class="filter-btn" data-filter="completed">
+            Completed <span class="badge" id="badgeCompleted">0</span>
+          </button>
+        </div>
+
+        <button type="button" class="btn-clear-completed" id="clearCompletedBtn" title="Remove finished tasks">
+          🧹 Clear Done
+        </button>
+      </section>
+
+      <!-- Tasks List Container -->
+      <section class="task-list-section">
+        <ul id="taskList" class="task-list">
+          <!-- Dynamically populated by app.js -->
+        </ul>
+
+        <!-- Empty State Placeholder -->
+        <div id="emptyState" class="empty-state">
+          <div class="empty-icon">🌈</div>
+          <h3 id="emptyTitle">All clear!</h3>
+          <p id="emptySubtitle">You have no tasks right now. Add one above to kick off your day!</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>Task Flow Lite · 100% Offline & Private · <span id="appYear"></span></p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
