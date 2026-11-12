@@ -2,51 +2,782 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>Blossom Trade Journal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#070c18">
+  <title>Blossom Trade Journal 🌸</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap">
   <style>
-  :root{--bg:#f4f6fa;--card:#fff;--tx:#0b1f3a;--mu:#6b7a90;--bd:#e2e8f0;--ac:#0b1f3a;--on:#fff;--g:#16a34a;--r:#dc2626;--in:#f8fafc;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-  @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#060b17;--card:#0c1530;--tx:#eef2fa;--mu:#8a98b4;--bd:#1a2644;--ac:#e8b4a6;--on:#1a1020;--g:#5fd3a0;--r:#f2808a;--in:#09112a;color-scheme:dark}}
-  :root[data-theme="dark"]{--bg:#060b17;--card:#0c1530;--tx:#eef2fa;--mu:#8a98b4;--bd:#1a2644;--ac:#e8b4a6;--on:#1a1020;--g:#5fd3a0;--r:#f2808a;--in:#09112a;color-scheme:dark}
-  html{scroll-padding-top:env(safe-area-inset-top,0px)}
-  body{margin:0;background:radial-gradient(900px 420px at 85% -5%,color-mix(in srgb,var(--ac) 10%,transparent),transparent),var(--bg);color:var(--tx);font:15px/1.6 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
-  #app{display:flex;min-height:100vh}
-  nav{width:210px;background:var(--card);border-right:1px solid var(--bd);padding:16px 10px;position:sticky;top:0;height:100vh;box-sizing:border-box;flex:none}
-  nav h1{font:600 20px/1.25 "Playfair Display",Georgia,serif;margin:8px 10px 20px;color:var(--ac)}
-  nav a{display:block;padding:10px 14px;border-radius:10px;color:var(--mu);cursor:pointer;font-weight:500;margin-bottom:2px}
-  nav a.on{background:var(--ac);color:var(--on)}
-  main{flex:1;min-width:0;padding:32px 28px;max-width:1040px;margin:0 auto;box-sizing:border-box}
-  @media(max-width:820px){#app{display:block}nav{position:fixed;top:auto;bottom:0;left:0;right:0;width:auto;height:auto;display:flex;overflow-x:auto;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--bd);border-right:0;z-index:5}nav h1{display:none}nav a{white-space:nowrap;padding:8px 12px;font-size:13px}main{padding:14px 14px 90px}}
-  .c{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 14px 34px -22px rgba(0,0,0,.55)}
-  .g{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:14px}.g .c{margin:0}
-  .k small{display:block;color:var(--mu);font-size:11px;text-transform:uppercase;letter-spacing:.09em}.k b{font-size:25px;font-weight:600}
-  .pos{color:var(--g)}.neg{color:var(--r)}.mu{color:var(--mu);font-size:13px}
-  .bar{height:8px;background:var(--bd);border-radius:6px;overflow:hidden;margin:8px 0}.bar i{display:block;height:100%;background:var(--g)}
-  input,select,textarea{width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--in);color:var(--tx);font:inherit}input:focus,select:focus,textarea:focus{outline:0;border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 22%,transparent)}
-  button{padding:9px 18px;border:0;border-radius:10px;background:var(--ac);color:var(--on);font:inherit;font-weight:600;cursor:pointer;transition:filter .15s}button:hover{filter:brightness(1.08)}
-  button.s{background:var(--in);color:var(--tx);border:1px solid var(--bd)}
-  .mic{float:right;padding:1px 8px;font-size:12px}.mic.on{background:var(--r);color:#fff}
-  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:6px}.row>*{flex:1 1 130px}.row.n{justify-content:center;align-items:center}.row.n>*{flex:none}
-  label{display:block;font-size:13px;color:var(--mu);margin:10px 0 4px}
-  .chip{display:inline-block;padding:4px 11px;border:1px solid var(--bd);border-radius:99px;margin:0 6px 6px 0;cursor:pointer;font-size:13px}.chip.on{background:var(--ac);color:var(--on)}
-  .tbl{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:7px 8px;border-bottom:1px solid var(--bd);text-align:left;white-space:nowrap}
-  .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.d{min-height:58px;border:1px solid var(--bd);border-radius:8px;padding:4px;font-size:12px;cursor:pointer}
-  .d.w{background:color-mix(in srgb,var(--g) 25%,var(--card))}.d.l{background:color-mix(in srgb,var(--r) 25%,var(--card))}.d.b{background:var(--bd)}.d.m{border-style:dashed}.we{opacity:.55}.td{outline:2px solid var(--ac)}
-  h2{font:600 30px/1.2 "Playfair Display",Georgia,serif;font-variant-numeric:lining-nums;letter-spacing:-.01em;margin:0 0 6px}
-  footer{padding:16px 28px;text-align:center;font-size:12px;color:var(--mu);border-top:1px solid var(--bd);margin-top:auto}
+    :root {
+      --bg: #070c18;
+      --card: #0f192f;
+      --card-elevated: #15223e;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --tx: #f8fafc;
+      --tx-muted: #8e9db5;
+      --tx-dim: #5c6b82;
+      --accent: #fb7185;
+      --accent-glow: rgba(251, 113, 133, 0.25);
+      --accent-grad: linear-gradient(135deg, #fb7185 0%, #e11d48 100%);
+      --g: #10b981;
+      --g-bg: rgba(16, 185, 129, 0.12);
+      --r: #f43f5e;
+      --r-bg: rgba(244, 63, 94, 0.12);
+      --in: #131f38;
+      --in-focus: #1c2c4e;
+      --bd: rgba(255, 255, 255, 0.08);
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 22px;
+      --radius-full: 9999px;
+      --font-main: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-display: "Playfair Display", Georgia, serif;
+    }
+
+    [data-theme="light"] {
+      --bg: #f4f6fa;
+      --card: #ffffff;
+      --card-elevated: #f8fafc;
+      --card-border: #e2e8f0;
+      --tx: #0b1f3a;
+      --tx-muted: #64748b;
+      --tx-dim: #94a3b8;
+      --accent: #e11d48;
+      --accent-glow: rgba(225, 29, 72, 0.15);
+      --accent-grad: linear-gradient(135deg, #fb7185 0%, #e11d48 100%);
+      --g: #059669;
+      --g-bg: #ecfdf5;
+      --r: #dc2626;
+      --r-bg: #fef2f2;
+      --in: #f1f5f9;
+      --in-focus: #ffffff;
+      --bd: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--tx);
+      font-family: var(--font-main);
+      font-size: 15px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+
+    #app-shell {
+      width: 100%;
+      max-width: 580px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      background: var(--bg);
+      box-shadow: 0 0 60px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Top App Bar */
+    header.app-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: calc(14px + env(safe-area-inset-top, 0px)) 20px 14px;
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--bd);
+    }
+
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--accent-grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--tx);
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--card);
+      border: 1px solid var(--bd);
+      color: var(--tx-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s ease;
+    }
+
+    .icon-btn:hover, .icon-btn:active {
+      color: var(--tx);
+      background: var(--card-elevated);
+      border-color: var(--accent);
+    }
+
+    /* Main Scrollable View Area */
+    main#main-content {
+      flex: 1;
+      padding: 18px 18px calc(90px + env(safe-area-inset-bottom, 0px));
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      overflow-y: auto;
+    }
+
+    /* Premium Mobile Cards */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-glow {
+      background: radial-gradient(400px circle at top right, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%), var(--card);
+      border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--card-border));
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--tx);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--tx-muted);
+      margin-top: 2px;
+    }
+
+    .card-action-btn {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+
+    .card-action-btn:hover {
+      background: var(--accent-glow);
+    }
+
+    /* Goals Section */
+    .goal-box {
+      background: var(--in);
+      border: 1px solid var(--bd);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-top: 10px;
+    }
+
+    .goal-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .goal-tag {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 9px;
+      border-radius: var(--radius-full);
+      background: var(--accent-glow);
+      color: var(--accent);
+    }
+
+    .goal-text {
+      font-size: 14px;
+      color: var(--tx);
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .goal-empty-text {
+      font-size: 13px;
+      color: var(--tx-muted);
+      font-style: italic;
+    }
+
+    .goal-edit-area {
+      width: 100%;
+      min-height: 70px;
+      background: var(--bg);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-sm);
+      color: var(--tx);
+      padding: 10px;
+      font-family: inherit;
+      font-size: 13.5px;
+      resize: vertical;
+      outline: none;
+    }
+
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .kpi-card {
+      background: var(--card-elevated);
+      border: 1px solid var(--bd);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .kpi-label {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--tx-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .kpi-val {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--tx);
+      margin-top: 4px;
+      line-height: 1.2;
+    }
+
+    .kpi-val.pos { color: var(--g); }
+    .kpi-val.neg { color: var(--r); }
+
+    /* Progress Indicators */
+    .progress-wrap {
+      margin-top: 10px;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: var(--in);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      margin: 6px 0;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent-grad);
+      border-radius: var(--radius-full);
+      transition: width 0.4s ease;
+    }
+
+    .progress-fill.green { background: var(--g); }
+    .progress-fill.red { background: var(--r); }
+
+    /* Form Controls */
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--bd);
+      border-radius: var(--radius-sm);
+      background: var(--in);
+      color: var(--tx);
+      font-family: inherit;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: var(--in-focus);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--tx-muted);
+      margin: 10px 0 5px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      font-size: 14.5px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 100%;
+    }
+
+    .btn-primary {
+      background: var(--accent-grad);
+      color: #ffffff;
+      box-shadow: 0 4px 14px var(--accent-glow);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .btn-secondary {
+      background: var(--card-elevated);
+      color: var(--tx);
+      border: 1px solid var(--bd);
+    }
+
+    .btn-secondary:active {
+      background: var(--in);
+    }
+
+    .btn-pill-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .pill-btn {
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      background: var(--in);
+      border: 1px solid var(--bd);
+      color: var(--tx-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .pill-btn.active {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+      box-shadow: 0 2px 8px var(--accent-glow);
+    }
+
+    /* Modern Mobile Bottom Navigation Bar */
+    nav.app-bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-width: 580px;
+      margin: 0 auto;
+      z-index: 50;
+      background: color-mix(in srgb, var(--card) 90%, transparent);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid var(--bd);
+      padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px));
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.35);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      color: var(--tx-muted);
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex: 1;
+      max-width: 76px;
+    }
+
+    .nav-item svg {
+      width: 22px;
+      height: 22px;
+      stroke-width: 2.2;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item.active {
+      color: var(--accent);
+    }
+
+    .nav-item.active svg {
+      transform: translateY(-2px);
+      filter: drop-shadow(0 2px 8px var(--accent-glow));
+    }
+
+    /* Floating Center Add Action Button */
+    .nav-item-center {
+      position: relative;
+      top: -12px;
+    }
+
+    .fab-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-full);
+      background: var(--accent-grad);
+      color: #ffffff;
+      border: 4px solid var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 18px var(--accent-glow);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .fab-btn svg {
+      width: 26px;
+      height: 26px;
+      stroke-width: 2.5;
+    }
+
+    .fab-btn:active {
+      transform: scale(0.92);
+    }
+
+    /* Sub-tabs bar */
+    .subtabs {
+      display: flex;
+      background: var(--in);
+      padding: 4px;
+      border-radius: var(--radius-md);
+      gap: 4px;
+      border: 1px solid var(--bd);
+    }
+
+    .subtab-btn {
+      flex: 1;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      border: none;
+      background: transparent;
+      color: var(--tx-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: center;
+    }
+
+    .subtab-btn.active {
+      background: var(--card);
+      color: var(--tx);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Trade Item Card */
+    .trade-card {
+      background: var(--card-elevated);
+      border: 1px solid var(--bd);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .trade-left {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .trade-pair {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: var(--tx);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .trade-side-badge {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .side-buy { background: rgba(16, 185, 129, 0.15); color: var(--g); }
+    .side-sell { background: rgba(244, 63, 94, 0.15); color: var(--r); }
+
+    .trade-right {
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+    }
+
+    .trade-pl {
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    /* Calendar Grid */
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+    }
+
+    .cal-day {
+      min-height: 52px;
+      border-radius: 8px;
+      background: var(--card-elevated);
+      border: 1px solid var(--bd);
+      padding: 4px;
+      font-size: 11px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .cal-day.w { background: var(--g-bg); border-color: color-mix(in srgb, var(--g) 40%, transparent); }
+    .cal-day.l { background: var(--r-bg); border-color: color-mix(in srgb, var(--r) 40%, transparent); }
+    .cal-day.today { outline: 2px solid var(--accent); }
+
+    /* Modal Sheet */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-sheet {
+      width: 100%;
+      max-width: 580px;
+      background: var(--card);
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+      border-top: 1px solid var(--bd);
+      padding: 20px 22px calc(24px + env(safe-area-inset-bottom, 0px));
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+      animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-grabber {
+      width: 40px;
+      height: 4px;
+      background: var(--tx-dim);
+      border-radius: var(--radius-full);
+      margin: 0 auto 16px;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
-  <div id="app">
-    <nav id="nv"></nav>
-    <main id="mn">Loading…</main>
+  <div id="app-shell">
+    <!-- Top Bar -->
+    <header class="app-topbar">
+      <div class="topbar-brand">
+        <div class="brand-icon">🌸</div>
+        <div>
+          <h1 class="brand-title">Blossom</h1>
+          <div style="font-size:11px;color:var(--tx-muted);font-weight:600">Trading Journal</div>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" id="themeToggleBtn" title="Toggle Theme">🌓</button>
+      </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main id="main-content">
+      <!-- Injected dynamically by app.js -->
+    </main>
+
+    <!-- Native-style Bottom Navigation Bar -->
+    <nav class="app-bottom-nav">
+      <!-- 1. Dashboard -->
+      <a class="nav-item active" data-tab="dash">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+        </svg>
+        <span>Dashboard</span>
+      </a>
+
+      <!-- 2. Daily Journal -->
+      <a class="nav-item" data-tab="jr">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+        </svg>
+        <span>Journal</span>
+      </a>
+
+      <!-- 3. Center Quick Add Button -->
+      <div class="nav-item-center">
+        <button class="fab-btn" id="openAddTradeModalBtn" title="Log Trade">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- 4. History / Calendar -->
+      <a class="nav-item" data-tab="hist">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+        </svg>
+        <span>History</span>
+      </a>
+
+      <!-- 5. More / Settings -->
+      <a class="nav-item" data-tab="more">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+        <span>More</span>
+      </a>
+    </nav>
+
+    <!-- Add Trade Slide-up Modal -->
+    <div id="addTradeModal" class="modal-overlay">
+      <div class="modal-sheet">
+        <div class="modal-grabber"></div>
+        <div class="card-header">
+          <h3 class="card-title">✍️ Log a New Trade</h3>
+          <button class="card-action-btn" id="closeAddTradeModalBtn">✕ Close</button>
+        </div>
+
+        <form id="quickTradeForm">
+          <label>Currency Pair / Symbol</label>
+          <input type="text" id="qtPair" placeholder="e.g. EURUSD, XAUUSD, NAS100" required autocomplete="off" style="text-transform:uppercase">
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px">
+            <div>
+              <label>Side</label>
+              <div class="btn-pill-group" id="qtSidePills">
+                <button type="button" class="pill-btn active" data-val="Buy">🟢 Buy</button>
+                <button type="button" class="pill-btn" data-val="Sell">🔴 Sell</button>
+              </div>
+            </div>
+            <div>
+              <label>Outcome</label>
+              <select id="qtOutcome">
+                <option value="Win">Win</option>
+                <option value="Loss">Loss</option>
+                <option value="Breakeven">Breakeven</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px">
+            <div>
+              <label>P/L Amount ($)</label>
+              <input type="number" id="qtAmount" placeholder="e.g. 50" step="any" required>
+            </div>
+            <div>
+              <label>Pips (Optional)</label>
+              <input type="number" id="qtPips" placeholder="e.g. 25" step="any">
+            </div>
+          </div>
+
+          <label>Followed Strategy / Plan?</label>
+          <div class="btn-pill-group" id="qtFollowedPills">
+            <button type="button" class="pill-btn active" data-val="Yes">Yes ✓</button>
+            <button type="button" class="pill-btn" data-val="Partly">Partly ⚠️</button>
+            <button type="button" class="pill-btn" data-val="No">No ✗</button>
+          </div>
+
+          <label>Setup Nuance / Notes</label>
+          <textarea id="qtWhy" rows="3" placeholder="Key level retest, confluence, what went well..."></textarea>
+
+          <button type="submit" class="btn btn-primary" style="margin-top:16px">Save Trade Record</button>
+        </form>
+      </div>
+    </div>
   </div>
-  <footer>
-    &copy; <span id="footer-year">2026</span> Blossom Trade Journal · All rights reserved.
-  </footer>
+
   <script src="app.js"></script>
 </body>
 </html>
