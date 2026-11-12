@@ -528,6 +528,25 @@
       box-shadow: 0 2px 8px var(--accent-glow);
     }
 
+    .rule-type-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 2px 7px;
+      border-radius: 6px;
+      margin-right: 8px;
+    }
+    .rule-type-badge.do {
+      background: var(--g-bg);
+      color: var(--g);
+    }
+    .rule-type-badge.dont {
+      background: var(--r-bg);
+      color: var(--r);
+    }
+
     /* Modern Bottom Navigation Bar */
     nav.app-bottom-nav {
       position: fixed;
@@ -814,7 +833,11 @@
         </div>
       </div>
       <div class="topbar-actions">
-        <button class="icon-btn" id="themeToggleBtn" title="Toggle Theme">🌓</button>
+        <button class="icon-btn" id="themeToggleBtn" title="Toggle Theme" aria-label="Toggle Theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
       </div>
     </header>
 
@@ -898,8 +921,8 @@
       <div class="modal-sheet">
         <div class="modal-grabber"></div>
         <div class="card-header">
-          <h3 class="card-title">✍️ Log a New Trade</h3>
-          <button class="card-action-btn" id="closeAddTradeModalBtn">✕ Close</button>
+          <h3 class="card-title">Log a New Trade</h3>
+          <button class="card-action-btn" id="closeAddTradeModalBtn">Close</button>
         </div>
 
         <form id="quickTradeForm">
@@ -910,8 +933,8 @@
             <div>
               <label>Side</label>
               <div class="btn-pill-group" id="qtSidePills">
-                <button type="button" class="pill-btn active" data-val="Buy">🟢 Buy</button>
-                <button type="button" class="pill-btn" data-val="Sell">🔴 Sell</button>
+                <button type="button" class="pill-btn active" data-val="Buy">Buy</button>
+                <button type="button" class="pill-btn" data-val="Sell">Sell</button>
               </div>
             </div>
             <div>
@@ -937,9 +960,9 @@
 
           <label>Followed Strategy / Plan?</label>
           <div class="btn-pill-group" id="qtFollowedPills">
-            <button type="button" class="pill-btn active" data-val="Yes">Yes ✓</button>
-            <button type="button" class="pill-btn" data-val="Partly">Partly ⚠️</button>
-            <button type="button" class="pill-btn" data-val="No">No ✗</button>
+            <button type="button" class="pill-btn active" data-val="Yes">Yes</button>
+            <button type="button" class="pill-btn" data-val="Partly">Partly</button>
+            <button type="button" class="pill-btn" data-val="No">No</button>
           </div>
 
           <label>Setup Nuance / Notes</label>

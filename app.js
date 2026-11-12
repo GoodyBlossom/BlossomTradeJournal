@@ -240,11 +240,11 @@ function renderDashboardView() {
     <!-- Top Greeting & Quick Action -->
     <div style="display:flex;align-items:center;justify-content:space-between">
       <div>
-        <h2 style="font-size:22px;font-weight:800;letter-spacing:-0.02em">Welcome back 👋</h2>
+        <h2 style="font-size:22px;font-weight:800;letter-spacing:-0.02em">Welcome Back</h2>
         <p style="font-size:13px;color:var(--tx-muted)">${new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' })}</p>
       </div>
       <button class="btn btn-primary" style="width:auto;padding:8px 15px;font-size:13px" onclick="openAddTradeModal()">
-        ➕ Log Trade
+        + Log Trade
       </button>
     </div>
 
@@ -252,7 +252,7 @@ function renderDashboardView() {
     <div class="card card-glow">
       <div class="card-header">
         <div>
-          <div class="card-title">⚡ Today's Performance</div>
+          <div class="card-title">Today's Performance</div>
           <div class="card-subtitle">Real-time daily trade tracking</div>
         </div>
         <span class="goal-tag" style="background:var(--in);color:var(--tx-muted)">${summary.n} Trade${summary.n === 1 ? '' : 's'}</span>
@@ -288,7 +288,7 @@ function renderDashboardView() {
 
         <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-top:10px">
           <span>Loss Limit (${settings.ml > 0 ? formatNumber(settings.ml) : 'Not set'})</span>
-          <span class="${summary.br ? 'neg' : ''}">${summary.br ? '⚠️ BREACHED' : 'Respected ✓'}</span>
+          <span class="${summary.br ? 'neg' : ''}">${summary.br ? 'Breached' : 'Respected'}</span>
         </div>
         <div class="progress-bar">
           <div class="progress-fill red" style="width:${lossPct}%"></div>
@@ -300,11 +300,11 @@ function renderDashboardView() {
     <div class="card">
       <div class="card-header">
         <div>
-          <div class="card-title">📅 ${currentMonthName} Goals</div>
+          <div class="card-title">${currentMonthName} Goals</div>
           <div class="card-subtitle">Monthly objectives & risk target</div>
         </div>
         <button class="card-action-btn" onclick="toggleEditGoal('monthly')">
-          ${editingGoals.monthly ? '💾 Save' : '✏️ Edit'}
+          ${editingGoals.monthly ? 'Save' : 'Edit'}
         </button>
       </div>
 
@@ -325,11 +325,11 @@ function renderDashboardView() {
     <div class="card">
       <div class="card-header">
         <div>
-          <div class="card-title">🎯 My Overall Trading Goals</div>
+          <div class="card-title">My Overall Trading Goals</div>
           <div class="card-subtitle">Long-term vision, principles & risk rules</div>
         </div>
         <button class="card-action-btn" onclick="toggleEditGoal('overall')">
-          ${editingGoals.overall ? '💾 Save' : '✏️ Edit'}
+          ${editingGoals.overall ? 'Save' : 'Edit'}
         </button>
       </div>
 
@@ -349,7 +349,7 @@ function renderDashboardView() {
     <div class="card">
       <div class="card-header">
         <div>
-          <div class="card-title">📈 30-Day Equity Curve</div>
+          <div class="card-title">30-Day Equity Curve</div>
           <div class="card-subtitle">Cumulative account growth</div>
         </div>
       </div>
@@ -386,7 +386,7 @@ function renderJournalView() {
     <div class="card">
       <div class="card-header">
         <div>
-          <div class="card-title">📋 Trades Logged (${trades.length})</div>
+          <div class="card-title">Trades Logged (${trades.length})</div>
           <div class="card-subtitle">Net: <b class="${summary.net < 0 ? 'neg' : summary.net > 0 ? 'pos' : ''}">${formatNumber(summary.net)} ${escapeHtml(settings.cur)}</b></div>
         </div>
         <button class="btn btn-primary" style="width:auto;padding:6px 12px;font-size:12px" onclick="openAddTradeModal()">
@@ -408,7 +408,12 @@ function renderJournalView() {
           </div>
           <div class="trade-right">
             <span class="trade-pl ${t.pl < 0 ? 'neg' : t.pl > 0 ? 'pos' : ''}">${formatNumber(+t.pl)}</span>
-            <button style="background:transparent;border:none;color:var(--tx-dim);cursor:pointer;font-size:14px;padding:4px" onclick="deleteTrade(${i})" title="Delete trade">🗑️</button>
+            <button style="background:transparent;border:none;color:var(--tx-dim);cursor:pointer;padding:4px;display:flex;align-items:center" onclick="deleteTrade(${i})" title="Delete trade">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+            </button>
           </div>
         </div>
       `).join('') : `
@@ -420,7 +425,7 @@ function renderJournalView() {
 
     <!-- Sessions & Notes -->
     <div class="card">
-      <div class="card-title" style="margin-bottom:12px">☀️ Sessions & Observations</div>
+      <div class="card-title" style="margin-bottom:12px">Sessions & Observations</div>
       <label>Sessions Traded</label>
       <div class="btn-pill-group">
         ${SESSIONS.map(s => {
@@ -435,7 +440,7 @@ function renderJournalView() {
 
     <!-- Psychology & Rule Checks -->
     <div class="card">
-      <div class="card-title" style="margin-bottom:12px">🧠 Emotional State & Discipline</div>
+      <div class="card-title" style="margin-bottom:12px">Emotional State & Discipline</div>
       <label>How did you feel today?</label>
       <div class="btn-pill-group">
         ${EMOTION_TAGS.map(tag => {
@@ -451,7 +456,7 @@ function renderJournalView() {
           const isYes = val === 'y';
           return `
             <button class="pill-btn ${isYes ? 'active' : ''}" style="${isYes ? 'background:var(--r);border-color:var(--r)' : ''}" onclick="toggleMistake('${key}')">
-              ${isYes ? '⚠️ ' : ''}${label}
+              ${label}
             </button>
           `;
         }).join('')}
@@ -464,11 +469,14 @@ function renderJournalView() {
             const status = day.rc?.[r.id]?.v || '';
             return `
               <div style="display:flex;align-items:center;justify-content:space-between;background:var(--in);padding:8px 12px;border-radius:8px">
-                <span style="font-size:13px">${r.t === 'do' ? '✅' : '⛔'} ${escapeHtml(r.x)}</span>
+                <div style="display:flex;align-items:center">
+                  <span class="rule-type-badge ${r.t === 'do' ? 'do' : 'dont'}">${r.t === 'do' ? 'DO' : 'AVOID'}</span>
+                  <span style="font-size:13px">${escapeHtml(r.x)}</span>
+                </div>
                 <select style="width:auto;padding:4px 8px;font-size:12px" onchange="setRuleCheck('${r.id}', this.value)">
                   <option value="" ${status === '' ? 'selected' : ''}>–</option>
-                  <option value="1" ${status === '1' ? 'selected' : ''}>Followed ✓</option>
-                  <option value="0" ${status === '0' ? 'selected' : ''}>Broke ✗</option>
+                  <option value="1" ${status === '1' ? 'selected' : ''}>Followed</option>
+                  <option value="0" ${status === '0' ? 'selected' : ''}>Broke</option>
                 </select>
               </div>
             `;
@@ -479,7 +487,7 @@ function renderJournalView() {
 
     <!-- Daily Reflection -->
     <div class="card">
-      <div class="card-title" style="margin-bottom:12px">📝 End-of-Day Review</div>
+      <div class="card-title" style="margin-bottom:12px">End-of-Day Review</div>
       <label>What went well? What can I improve tomorrow?</label>
       <textarea rows="3" placeholder="Key takeaways and lesson of the day..." onchange="updateDayField('rv.text', this.value)">${escapeHtml(day.rv?.text || '')}</textarea>
     </div>
@@ -508,10 +516,10 @@ function renderHistoryView() {
   return `
     <div class="subtabs">
       <button class="subtab-btn ${historySubtab === 'list' ? 'active' : ''}" onclick="setHistorySubtab('list')">
-        📜 Trade List (${filtered.length})
+        Trade List (${filtered.length})
       </button>
       <button class="subtab-btn ${historySubtab === 'cal' ? 'active' : ''}" onclick="setHistorySubtab('cal')">
-        📅 Calendar Heatmap
+        Calendar Heatmap
       </button>
     </div>
 
@@ -601,7 +609,7 @@ function renderCalendarGrid() {
         ${daysHtml}
       </div>
       <div style="font-size:11.5px;color:var(--tx-muted);text-align:center;margin-top:10px">
-        🟢 Profitable Day · 🔴 Losing Day · Tap any date to view journal
+        <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--g);margin-right:4px"></span> Profitable Day &nbsp;·&nbsp; <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--r);margin-right:4px"></span> Losing Day · Tap any date to view journal
       </div>
     </div>
   `;
@@ -615,20 +623,20 @@ function renderMoreView() {
   return `
     <div class="subtabs">
       <button class="subtab-btn ${moreSubtab === 'rules' ? 'active' : ''}" onclick="setMoreSubtab('rules')">
-        ✔ Rules
+        Rules
       </button>
       <button class="subtab-btn ${moreSubtab === 'notes' ? 'active' : ''}" onclick="setMoreSubtab('notes')">
-        ✐ Notes
+        Notes
       </button>
       <button class="subtab-btn ${moreSubtab === 'set' ? 'active' : ''}" onclick="setMoreSubtab('set')">
-        ⚙ Settings
+        Settings
       </button>
     </div>
 
     ${moreSubtab === 'rules' ? `
       <!-- Trading Rules Management -->
       <div class="card">
-        <div class="card-title">✅ Things I MUST DO</div>
+        <div class="card-title">Things I MUST DO</div>
         <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
           ${S.rules.filter(r => r.t === 'do').map(r => `
             <div style="display:flex;align-items:center;justify-content:space-between;background:var(--in);padding:10px 12px;border-radius:10px">
@@ -644,7 +652,7 @@ function renderMoreView() {
       </div>
 
       <div class="card">
-        <div class="card-title">⛔ Things I MUST NOT DO</div>
+        <div class="card-title">Things I MUST NOT DO</div>
         <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
           ${S.rules.filter(r => r.t === 'dont').map(r => `
             <div style="display:flex;align-items:center;justify-content:space-between;background:var(--in);padding:10px 12px;border-radius:10px">
@@ -661,14 +669,14 @@ function renderMoreView() {
     ` : moreSubtab === 'notes' ? `
       <!-- Notes Section -->
       <div class="card">
-        <div class="card-title">✍️ New Lesson or Note</div>
+        <div class="card-title">New Lesson or Note</div>
         <input id="noteTitleInput" placeholder="Note Title (e.g. London Open Strategy)" style="margin-top:8px">
         <textarea id="noteBodyInput" rows="3" placeholder="Key trading insight, reminder, mistake learned..." style="margin-top:8px"></textarea>
         <button class="btn btn-primary" style="margin-top:10px" onclick="addNote()">Save Note</button>
       </div>
 
       <div class="card">
-        <div class="card-title">📚 Saved Notes (${S.notes.length})</div>
+        <div class="card-title">Saved Notes (${S.notes.length})</div>
         ${S.notes.length > 0 ? S.notes.map(n => `
           <div style="background:var(--card-elevated);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;margin-top:10px">
             <div style="display:flex;justify-content:space-between;align-items:center">
@@ -683,7 +691,7 @@ function renderMoreView() {
     ` : `
       <!-- Settings Section -->
       <div class="card">
-        <div class="card-title">⚙️ Risk & Trading Limits</div>
+        <div class="card-title">Risk & Trading Limits</div>
         <label>Daily Profit Target ($)</label>
         <input type="number" value="${settings.tg || ''}" placeholder="100" onchange="S.set.tg = +this.value || 0; saveData();">
 
@@ -698,11 +706,11 @@ function renderMoreView() {
       </div>
 
       <div class="card">
-        <div class="card-title">💾 Backup & Data Management</div>
+        <div class="card-title">Backup & Data Management</div>
         <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
-          <button class="btn btn-secondary" onclick="exportTradesCSV()">📥 Export Trades as CSV</button>
-          <button class="btn btn-secondary" onclick="exportJournalCSV()">📥 Export Journal as CSV</button>
-          <button class="btn btn-secondary" style="color:var(--r);border-color:var(--r-bg)" onclick="resetAllData()">⚠️ Clear All Data</button>
+          <button class="btn btn-secondary" onclick="exportTradesCSV()">Export Trades (CSV)</button>
+          <button class="btn btn-secondary" onclick="exportJournalCSV()">Export Journal (CSV)</button>
+          <button class="btn btn-secondary" style="color:var(--r);border-color:var(--r-bg)" onclick="resetAllData()">Reset All Data</button>
         </div>
       </div>
     `}
