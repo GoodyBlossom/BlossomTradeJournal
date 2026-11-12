@@ -1,0 +1,96 @@
+name: Build & Release Blossom Trade Journal APK
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build Release APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Generate Release Keystore
+        working-directory: android/app
+        run: |
+          keytool -genkey -v \
+            -keystore release.keystore \
+            -alias blossomtradejournal \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -storepass blossomtradejournal \
+            -keypass blossomtradejournal \
+            -dname "CN=BlossomTradeJournal, OU=App, O=Blossom, L=Lagos, S=Lagos, C=NG"
+
+      - name: Accept Android SDK Licenses & Setup Wrapper
+        working-directory: android
+        run: |
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+          gradle wrapper --gradle-version 8.4
+          chmod +x gradlew
+
+      - name: Build with Gradle
+        working-directory: android
+        run: |
+          ./gradlew assembleRelease --stacktrace
+
+      - name: Prepare Root APK
+        run: |
+          cp android/app/build/outputs/apk/release/*.apk ./blossomtradejournal.apk
+          ls -lh ./blossomtradejournal.apk
+
+      - name: Verify APK Signing & Metadata
+        run: |
+          $ANDROID_HOME/build-tools/34.0.0/apksigner verify --verbose ./blossomtradejournal.apk || true
+          $ANDROID_HOME/build-tools/34.0.0/aapt dump badging ./blossomtradejournal.apk | grep -E "package|application-label" || true
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: blossomtradejournal-apk
+          path: blossomtradejournal.apk
+
+      - name: Create or Update GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        with:
+          tag_name: v1.0.0
+          name: "Blossom Trade Journal v1.0.0 🌸"
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          body: |
+            ## Blossom Trade Journal v1.0.0 🌸
+            
+            A discipline-focused trading journal and behavioral analytics app designed for financial and forex traders. Packaged as a compact, high-performance native Android WebView APK.
+            
+            ### ✨ Core Features
+            - ▦ **Live Dashboard**: Daily net P/L, trades count, profit target and loss limit breach trackers, discipline score, and 30-day cumulative equity curve.
+            - ✎ **Daily Journal**: Trade entry (pair, side, outcome, pips, P/L, strategy compliance), emotional tagging (FOMO, revenge trading, overtrading), and customizable trading rule checklist.
+            - ☰ **Trade History**: Searchable and filterable by currency pair, date, outcome, or emotion tags with CSV export support.
+            - ✔ **Trading Rules**: Define and manage your core "Things I MUST DO" and "Things I MUST NOT DO".
+            - ▤ **Calendar Heatmap**: Monthly profit/loss color-coded calendar with direct review navigation.
+            - ◔ **Monthly Analytics & Growth**: Win rates, average P/L, month-over-month emotional management, patience, and strategy adherence trends.
+            - ✐ **Notes & Reflections**: Structured trading lessons, strategy notes, and reminders.
+            - 🔒 **100% Offline & Private**: Zero cloud backend dependencies; all records persist locally in your device's `localStorage`.
+            
+            ### 📦 Download APK
+            Download **`blossomtradejournal.apk`** below to install directly on any Android device (Android 5.0 Lollipop and above).
+          files: |
+            blossomtradejournal.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
