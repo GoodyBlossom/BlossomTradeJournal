@@ -1,6 +1,6 @@
 /**
  * Blossom Trade Journal - Premium Mobile Client Application Logic
- * Pure Vanilla JavaScript (ES6+) - 100% Offline Compatible
+ * Pure Vanilla JavaScript (ES6+) - 100% Unified Poppins Font & Mobile Architecture
  */
 
 const STORAGE_KEY = 'blossom_trade_journal_v3';
@@ -237,68 +237,19 @@ function renderDashboardView() {
   const monthlyGoal = S.goals.monthly[currentMonth] || '';
 
   return `
-    <!-- Top Greeting & Quick Actions -->
+    <!-- Top Greeting & Quick Action -->
     <div style="display:flex;align-items:center;justify-content:space-between">
       <div>
         <h2 style="font-size:22px;font-weight:800;letter-spacing:-0.02em">Welcome back 👋</h2>
         <p style="font-size:13px;color:var(--tx-muted)">${new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' })}</p>
       </div>
-      <button class="btn btn-primary" style="width:auto;padding:8px 14px;font-size:13px" onclick="openAddTradeModal()">
+      <button class="btn btn-primary" style="width:auto;padding:8px 15px;font-size:13px" onclick="openAddTradeModal()">
         ➕ Log Trade
       </button>
     </div>
 
-    <!-- 1. General Overall Goals Card -->
+    <!-- 1. TODAY'S PERFORMANCE FIRST (As Requested) -->
     <div class="card card-glow">
-      <div class="card-header">
-        <div>
-          <div class="card-title">🎯 My Overall Trading Goals</div>
-          <div class="card-subtitle">Your core vision, principles & targets</div>
-        </div>
-        <button class="card-action-btn" onclick="toggleEditGoal('overall')">
-          ${editingGoals.overall ? '💾 Save' : '✏️ Edit'}
-        </button>
-      </div>
-
-      <div class="goal-box">
-        <div class="goal-header-row">
-          <span class="goal-tag">Long-Term Vision</span>
-        </div>
-        ${editingGoals.overall ? `
-          <textarea id="overallGoalInput" class="goal-edit-area" rows="3" placeholder="Enter your overall trading goals (e.g. risk rules, target funding, discipline mindset)...">${escapeHtml(overallGoals)}</textarea>
-        ` : `
-          <div class="goal-text">${overallGoals ? escapeHtml(overallGoals) : '<span class="goal-empty-text">No overall trading goals set yet. Tap Edit to write down what you want to achieve!</span>'}</div>
-        `}
-      </div>
-    </div>
-
-    <!-- 2. Monthly Trading Goals Card -->
-    <div class="card">
-      <div class="card-header">
-        <div>
-          <div class="card-title">📅 ${currentMonthName} Goals</div>
-          <div class="card-subtitle">Focus & objectives for this month</div>
-        </div>
-        <button class="card-action-btn" onclick="toggleEditGoal('monthly')">
-          ${editingGoals.monthly ? '💾 Save' : '✏️ Edit'}
-        </button>
-      </div>
-
-      <div class="goal-box">
-        <div class="goal-header-row">
-          <span class="goal-tag" style="background:var(--g-bg);color:var(--g)">Monthly Focus</span>
-          <span style="font-size:12px;color:var(--tx-muted)">${monthSummary.n} trades logged</span>
-        </div>
-        ${editingGoals.monthly ? `
-          <textarea id="monthlyGoalInput" class="goal-edit-area" rows="2" placeholder="What are your primary goals for ${currentMonthName}? (e.g. Target profit, 80%+ plan adherence, zero FOMO)...">${escapeHtml(monthlyGoal)}</textarea>
-        ` : `
-          <div class="goal-text">${monthlyGoal ? escapeHtml(monthlyGoal) : `<span class="goal-empty-text">Set your targets for ${currentMonthName} to stay disciplined. Tap Edit above.</span>`}</div>
-        `}
-      </div>
-    </div>
-
-    <!-- 3. Today's Performance Snapshot -->
-    <div class="card">
       <div class="card-header">
         <div>
           <div class="card-title">⚡ Today's Performance</div>
@@ -307,7 +258,7 @@ function renderDashboardView() {
         <span class="goal-tag" style="background:var(--in);color:var(--tx-muted)">${summary.n} Trade${summary.n === 1 ? '' : 's'}</span>
       </div>
 
-      <div style="text-align:center;padding:12px 0">
+      <div style="text-align:center;padding:10px 0 14px">
         <div style="font-size:12px;text-transform:uppercase;letter-spacing:0.06em;color:var(--tx-muted);font-weight:700">Net Profit / Loss</div>
         <div style="font-size:36px;font-weight:800;letter-spacing:-0.03em" class="${summary.net < 0 ? 'neg' : summary.net > 0 ? 'pos' : ''}">
           ${formatNumber(summary.net)} <span style="font-size:18px;font-weight:600">${escapeHtml(settings.cur)}</span>
@@ -345,7 +296,56 @@ function renderDashboardView() {
       </div>
     </div>
 
-    <!-- 4. 30-Day Cumulative Chart Card -->
+    <!-- 2. MONTHLY GOALS SECOND (Below Today's Performance) -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">📅 ${currentMonthName} Goals</div>
+          <div class="card-subtitle">Monthly objectives & risk target</div>
+        </div>
+        <button class="card-action-btn" onclick="toggleEditGoal('monthly')">
+          ${editingGoals.monthly ? '💾 Save' : '✏️ Edit'}
+        </button>
+      </div>
+
+      <div class="goal-box">
+        <div class="goal-header-row">
+          <span class="goal-tag" style="background:var(--g-bg);color:var(--g)">Monthly Focus</span>
+          <span style="font-size:12px;color:var(--tx-muted)">${monthSummary.n} trades logged</span>
+        </div>
+        ${editingGoals.monthly ? `
+          <textarea id="monthlyGoalInput" class="goal-edit-area" rows="2" placeholder="What are your goals for ${currentMonthName}? (e.g. Target +$500, 85%+ plan adherence, zero FOMO)...">${escapeHtml(monthlyGoal)}</textarea>
+        ` : `
+          <div class="goal-text">${monthlyGoal ? escapeHtml(monthlyGoal) : `<span class="goal-empty-text">Set your targets for ${currentMonthName} to stay disciplined. Tap Edit above.</span>`}</div>
+        `}
+      </div>
+    </div>
+
+    <!-- 3. GENERAL OVERALL GOALS THIRD -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">🎯 My Overall Trading Goals</div>
+          <div class="card-subtitle">Long-term vision, principles & risk rules</div>
+        </div>
+        <button class="card-action-btn" onclick="toggleEditGoal('overall')">
+          ${editingGoals.overall ? '💾 Save' : '✏️ Edit'}
+        </button>
+      </div>
+
+      <div class="goal-box">
+        <div class="goal-header-row">
+          <span class="goal-tag">Core Principles</span>
+        </div>
+        ${editingGoals.overall ? `
+          <textarea id="overallGoalInput" class="goal-edit-area" rows="3" placeholder="Enter your overall trading goals (e.g. max 1% risk per trade, funded account target, discipline rules)...">${escapeHtml(overallGoals)}</textarea>
+        ` : `
+          <div class="goal-text">${overallGoals ? escapeHtml(overallGoals) : '<span class="goal-empty-text">No overall trading goals set yet. Tap Edit to write down your vision!</span>'}</div>
+        `}
+      </div>
+    </div>
+
+    <!-- 4. 30-DAY CUMULATIVE EQUITY CURVE -->
     <div class="card">
       <div class="card-header">
         <div>
@@ -538,7 +538,7 @@ function renderHistoryView() {
                 <span class="trade-side-badge ${t.s === 'Buy' ? 'side-buy' : 'side-sell'}">${t.s}</span>
               </div>
               <div style="font-size:12px;color:var(--tx-muted)">
-                ${t.date} · ${t.pips ? escapeHtml(t.pips) + ' pips' : 'Plan: ' + (t.fol || 'Yes')}
+                ${t.date} · ${t.pips ? escapeHtml(t.pips) + ' pips · ' : ''}${t.fol ? 'Plan: ' + t.fol : ''}
               </div>
               ${t.why ? `<div style="font-size:12px;color:var(--tx-muted);font-style:italic">"${escapeHtml(t.why)}"</div>` : ''}
             </div>
@@ -1025,6 +1025,16 @@ function init() {
       render();
     });
   }
+
+  // Dismiss splash screen smoothly
+  setTimeout(() => {
+    const splash = $('#splashScreen');
+    if (splash) splash.classList.add('hide');
+  }, 1300);
+
+  $('#splashScreen')?.addEventListener('click', () => {
+    $('#splashScreen')?.classList.add('hide');
+  });
 
   render();
 }
